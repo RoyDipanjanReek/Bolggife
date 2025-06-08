@@ -17,44 +17,38 @@ const postSchema = new mongoose.Schema(
     },
     image: {
       type: String,
-      default: ""
-        
+      default: "",
     },
     category: {
       type: String,
       default: "uncategorized",
     },
-    slug: {
-      type: String,
-      required: true,
-      unique: true,
-    },
     authorId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User"
+      ref: "User",
     },
     likes: {
       type: [mongoose.Schema.Types.ObjectId],
-      ref:"User",
-      default: []
+      ref: "User",
+      default: [],
     },
-    comment:[
+    comment: [
       {
         user: {
           type: mongoose.Schema.Types.ObjectId,
           ref: "User",
-          required: true
+          required: true,
         },
         text: {
           type: String,
-          required:true
+          required: true,
         },
         data: {
           type: Date,
-          default: Date.now
-        }
-      }
-    ]
+          default: Date.now,
+        },
+      },
+    ],
   },
   { timestamps: true }
 );

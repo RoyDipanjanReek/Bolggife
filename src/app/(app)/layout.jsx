@@ -1,11 +1,12 @@
 "use client";
-
+import { useClerk } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { Home, Plus, LogOut, Menu, Upload } from "lucide-react";
 import React, { useState } from "react";
 import button from "../component/button/button";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+
 const sideBarItem = [
   { href: "/Home", icon: Home, lebel: "Home" },
   { href: "/Create-Blog", icon: Upload, lebel: "Create Blog" },
@@ -16,15 +17,15 @@ export default function Layout({ children }) {
   const router = useRouter();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const pathname = usePathname();
+  const { signOut } = useClerk();
 
   const handleNavigation = (path) => {
     router.push(path);
     setIsDrawerOpen(false);
   };
 
-  const handleLogout = () => {
-    router.push("/logout");
-    setIsDrawerOpen(false);
+  const handleLogout =async () => {
+    await signOut();
   };
 
   return (
@@ -32,6 +33,14 @@ export default function Layout({ children }) {
       {/* Top Navbar */}
       <header className="bg-blue-600 text-white p-4 shadow-md flex items-center justify-between">
         <h1 className="text-xl font-bold">Bolggife</h1>
+        <div>
+          <button
+            onClick={handleLogout}
+            className="bg-red-500 flex gap-2 py-3 px-3 rounded-2xl hover:bg-red-400 hover:cursor-pointer"
+          >
+            Logout
+          </button>
+        </div>
         <button
           className="md:hidden text-white"
           onClick={() => setIsDrawerOpen(!isDrawerOpen)}
