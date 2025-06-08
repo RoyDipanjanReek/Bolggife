@@ -7,8 +7,8 @@ import button from "../component/button/button";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 const sideBarItem = [
-  { href: "/home", icon: Home, lebel: "Home" },
-  { href: "/add-blog", icon: Upload, lebel: "add-blog" },
+  { href: "/Home", icon: Home, lebel: "Home" },
+  { href: "/Create-Blog", icon: Upload, lebel: "Create Blog" },
   { href: "/add-blodd", icon: Upload, lebel: "add-blogss" },
 ];
 
