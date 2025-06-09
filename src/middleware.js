@@ -1,8 +1,11 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
+// Match frontend public routes
 const isPublicRoute = createRouteMatcher(["/", "/sign-in(.*)", "/sign-up(.*)"]);
-const isPublicApiRoute = createRouteMatcher(["/api"]);
+
+// ✅ Match all /api routes properly, not just /api
+const isPublicApiRoute = createRouteMatcher(["/api(.*)"]);
 
 export default clerkMiddleware(async (auth, req) => {
   const { userId } = await auth();
@@ -10,10 +13,12 @@ export default clerkMiddleware(async (auth, req) => {
 
   const isAccessingDashboard = currentUrl.pathname === "/Home";
 
+  // Redirect logged-in user from public pages (optional UX)
   if (userId && isPublicRoute(req) && !isAccessingDashboard) {
     return NextResponse.redirect(new URL("/Home", req.url));
   }
 
+  // ✅ Don't redirect public routes or API requests
   if (!userId && !isPublicRoute(req) && !isPublicApiRoute(req)) {
     return NextResponse.redirect(new URL("/sign-in", req.url));
   }
