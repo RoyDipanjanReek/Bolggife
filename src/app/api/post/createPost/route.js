@@ -4,7 +4,7 @@ import { auth } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import cloudinary from "cloudinary";
 
-// ✅ Cloudinary Configuration
+//  Cloudinary Configuration
 cloudinary.v2.config({
   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
@@ -13,8 +13,9 @@ cloudinary.v2.config({
 
 export async function POST(request) {
   try {
-    // ✅ Optional Clerk Auth (comment out during Postman testing)
+    // Optional Clerk Auth (comment out during Postman testing)
     const { userId } = await auth();
+
     if (!userId) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
@@ -26,7 +27,7 @@ export async function POST(request) {
     const content = formData.get("content");
     const file = formData.get("file");
 
-    if (!title || !content || !file instanceof File) {
+    if (!title || !content || !file ) {
       // Check if 'file' is actually an instance of File object
       return NextResponse.json(
         { error: "Title, content, and a valid image file are required." },
@@ -97,8 +98,8 @@ export async function POST(request) {
       title,
       content,
       publicId: cloudinaryResult.public_id,
-      imageUrl: cloudinaryResult.secure_url, 
-      authorId: userId, 
+      file: cloudinaryResult.secure_url, 
+      // authorId: userId, 
     });
 
     await newPost.save();

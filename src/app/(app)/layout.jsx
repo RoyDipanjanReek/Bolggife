@@ -1,11 +1,11 @@
 "use client";
 import { useClerk } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
-import { Home, Plus, LogOut, Menu, Upload } from "lucide-react";
+import { Home, Menu, Upload } from "lucide-react";
 import React, { useState } from "react";
-import button from "../component/button/button";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import ThemeSwitcher from "../component/ThemeSwitcher";
 
 const sideBarItem = [
   { href: "/Home", icon: Home, lebel: "Home" },
@@ -24,16 +24,17 @@ export default function Layout({ children }) {
     setIsDrawerOpen(false);
   };
 
-  const handleLogout =async () => {
+  const handleLogout = async () => {
     await signOut();
   };
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen ">
       {/* Top Navbar */}
       <header className="bg-blue-600 text-white p-4 shadow-md flex items-center justify-between">
         <h1 className="text-xl font-bold">Bolggife</h1>
-        <div>
+         {/**<ThemeSwitcher />*/}
+        <div className="">
           <button
             onClick={handleLogout}
             className="bg-red-500 flex gap-2 py-3 px-3 rounded-2xl hover:bg-red-400 hover:cursor-pointer"
@@ -65,12 +66,12 @@ export default function Layout({ children }) {
                 <li key={item.href} className="mb-2 py-2">
                   <Link
                     href={item.href}
-                    className={`flex items-center space-x-4 px-4 py-2 rounded-lg bg-gray-500 ${
+                    className={`flex items-center space-x-4 px-4 py-2 rounded-lg ${
                       pathname === item.href
-                        ? "bg-primary text-white"
-                        : "hover:bg-base-300"
+                        ? "bg-blue-600 text-white"
+                        : "bg-gray-500 hover:bg-blue-200 hover:text-black"
                     }`}
-                    onClick={() => setSidebarOpen(false)}
+                    onClick={() => setIsDrawerOpen(false)}
                   >
                     <item.icon className="w-6 h-6" />
                     <span>{item.lebel}</span>

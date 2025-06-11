@@ -5,7 +5,7 @@ import React, { useState } from "react";
 function page() {
   // const [state, setState] = useState(initialState);
   const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [content, setContent] = useState("");
   const [file, setFile] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
   const router = useRouter();
@@ -16,7 +16,7 @@ function page() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!title || !description || !file) return;
+    if (!title || !content || !file) return;
 
     if (file.size > MAX_FILE_SIZE) {
       alert("File size is too large");
@@ -27,7 +27,7 @@ function page() {
     const formData = new FormData();
     formData.append("file", file);
     formData.append("title", title);
-    formData.append("description", description);
+    formData.append("content", content);
     formData.append("originalSize", file.size.toString());
 
     try {
@@ -35,6 +35,9 @@ function page() {
         method: "POST",
         body: formData,
       });
+
+      console.log(response);
+      
 
       if (!response.ok) {
         throw new Error("Failed to uplode the blog");
@@ -73,8 +76,8 @@ function page() {
             <span className="label-text">Blog Description</span>
           </label>
           <textarea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
             className="textarea textarea-bordered w-full"
           />
         </div>
