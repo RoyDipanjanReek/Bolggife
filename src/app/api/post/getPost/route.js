@@ -5,10 +5,10 @@ import { NextResponse } from "next/server";
 
 export async function GET(request) {
   try {
-    const { userId } = await auth();
-    if (!userId) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
+    // const { userId } = await auth();
+    // if (!userId) {
+    //   return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    // }
     await dbConnect();
     const post = await Post.find().sort({ createdAt: -1 });
 

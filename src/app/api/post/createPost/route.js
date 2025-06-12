@@ -99,7 +99,7 @@ export async function POST(request) {
       content,
       publicId: cloudinaryResult.public_id,
       file: cloudinaryResult.secure_url, 
-      // authorId: userId, 
+      authorId: userId 
     });
 
     await newPost.save();

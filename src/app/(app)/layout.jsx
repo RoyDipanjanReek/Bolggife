@@ -10,7 +10,7 @@ import ThemeSwitcher from "../component/ThemeSwitcher";
 const sideBarItem = [
   { href: "/Home", icon: Home, lebel: "Home" },
   { href: "/Create-Blog", icon: Upload, lebel: "Create Blog" },
-  { href: "/add-blodd", icon: Upload, lebel: "add-blogss" },
+  { href: "/profile", icon: Upload, lebel: "Profile" },
 ];
 
 export default function Layout({ children }) {
@@ -32,7 +32,11 @@ export default function Layout({ children }) {
     <div className="flex flex-col min-h-screen ">
       {/* Top Navbar */}
       <header className="bg-blue-600 text-white p-4 shadow-md flex items-center justify-between">
-        <h1 className="text-xl font-bold">Bolggife</h1>
+        <h1 
+        // onClick={}
+        className="text-xl font-bold hover:cursor-pointer"
+        >Bolggife
+        </h1>
          {/**<ThemeSwitcher />*/}
         <div className="">
           <button
