@@ -1,5 +1,6 @@
 "use client";
 import BlogCard from "@/app/component/BlogCard";
+import SearchBar from "@/app/component/SearchBar";
 import axios from "axios";
 import { LoaderCircle } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
@@ -12,7 +13,7 @@ function page() {
   const fetchBlogs = useCallback(async () => {
     try {
       const responce = await axios.get("/api/post/getPost", {
-        withCredentials: true, 
+        withCredentials: true,
       });
 
       if (Array.isArray(responce.data?.data)) {
@@ -42,16 +43,22 @@ function page() {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Bolgs </h1>
+      <div className="flex flex-row items-center justify-between mb-4">
+        <h1 className="hidden sm:block text-2xl font-bold">Blogs</h1>
+
+        <SearchBar />
+      </div>
 
       {blogs.length === 0 ? (
         <div className="text-center text-lg text-gray-500">
           No blogs available
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mx-2">
           {blogs.map((blog) => (
-            <BlogCard key={blog._id} blog={blog} />
+            <div key={blog._id} className="flex justify-center">
+              <BlogCard blog={blog} />
+            </div>
           ))}
         </div>
       )}

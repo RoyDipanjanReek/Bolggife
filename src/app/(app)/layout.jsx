@@ -1,7 +1,7 @@
 "use client";
 import { useClerk } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
-import { Home, Menu, Upload } from "lucide-react";
+import { Home, Menu, Upload, User } from "lucide-react";
 import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -10,7 +10,7 @@ import ThemeSwitcher from "../component/ThemeSwitcher";
 const sideBarItem = [
   { href: "/Home", icon: Home, lebel: "Home" },
   { href: "/Create-Blog", icon: Upload, lebel: "Create Blog" },
-  { href: "/profile", icon: Upload, lebel: "Profile" },
+  { href: "/Profile", icon: User, lebel: "Profile" },
 ];
 
 export default function Layout({ children }) {
@@ -28,16 +28,21 @@ export default function Layout({ children }) {
     await signOut();
   };
 
+  const handleRedirectToHomePage = () => {
+    router.push(`/Home`);
+  };
+
   return (
     <div className="flex flex-col min-h-screen ">
       {/* Top Navbar */}
       <header className="bg-blue-600 text-white p-4 shadow-md flex items-center justify-between">
-        <h1 
-        // onClick={}
-        className="text-xl font-bold hover:cursor-pointer"
-        >Bolggife
+        <h1
+          onClick={handleRedirectToHomePage}
+          className="text-xl font-bold hover:cursor-pointer"
+        >
+          Bolggife
         </h1>
-         {/**<ThemeSwitcher />*/}
+        {/**<ThemeSwitcher />*/}
         <div className="">
           <button
             onClick={handleLogout}

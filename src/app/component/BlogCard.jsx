@@ -4,6 +4,8 @@ import React, { useCallback, useState } from "react";
 import realtiveTime from "dayjs/plugin/relativeTime";
 
 dayjs.extend(realtiveTime);
+
+
 const BlogCard = ({ blog }) => {
   const [showFull, setShowFull] = useState(false);
   const maxLength = 150;
@@ -16,7 +18,7 @@ const BlogCard = ({ blog }) => {
     : blog.content;
 
   const handleRedirect = () => {
-    router.push(`/blog/${blog._id}`);
+    router.push(`/Home/${blog._id}`);
   };
 
   const formatDuration = useCallback((second) => {
@@ -28,7 +30,7 @@ const BlogCard = ({ blog }) => {
 
   return (
     <div
-      
+      onClick={handleRedirect}
       className="card bg-base-300 shadow-sm w-96 h-[380px] overflow-hidden"
     >
       <figure className="h-[180px] w-full overflow-hidden">
